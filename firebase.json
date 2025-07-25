@@ -1,0 +1,49 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "cook-book-af0b4",
+          "appId": "1:938145302049:android:58ebc76d04893c38d14560",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "cook-book-af0b4",
+          "appId": "1:938145302049:ios:9f14f04f791e21d4d14560",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "macos": {
+        "default": {
+          "projectId": "cook-book-af0b4",
+          "appId": "1:938145302049:ios:9f14f04f791e21d4d14560",
+          "uploadDebugSymbols": false,
+          "fileOutput": "macos/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "cook-book-af0b4",
+          "configurations": {
+            "android": "1:938145302049:android:58ebc76d04893c38d14560",
+            "ios": "1:938145302049:ios:9f14f04f791e21d4d14560",
+            "macos": "1:938145302049:ios:9f14f04f791e21d4d14560",
+            "web": "1:938145302049:web:9cc5690351a57144d14560",
+            "windows": "1:938145302049:web:2ca2d8fdeccc95a0d14560"
+          }
+        }
+      }
+    }
+  },
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
