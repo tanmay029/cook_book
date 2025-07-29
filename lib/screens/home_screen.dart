@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_book/screens/add_recipe_screen.dart';
+import 'package:recipe_book/screens/profile_screen.dart';
 import '../data/recipe_data.dart';
 import '../models/recipe.dart';
 import '../services/recipe_service.dart';
@@ -43,13 +45,14 @@ class _HomeScreenState extends State<HomeScreen> {
   void _filterRecipes() {
     final query = _searchController.text.toLowerCase();
     setState(() {
-      _filteredRecipes = recipes.where((recipe) {
-        return recipe.name.toLowerCase().contains(query) ||
-            recipe.difficulty.toLowerCase().contains(query) ||
-            recipe.ingredients.any(
-              (ingredient) => ingredient.toLowerCase().contains(query),
-            );
-      }).toList();
+      _filteredRecipes =
+          recipes.where((recipe) {
+            return recipe.name.toLowerCase().contains(query) ||
+                recipe.difficulty.toLowerCase().contains(query) ||
+                recipe.ingredients.any(
+                  (ingredient) => ingredient.toLowerCase().contains(query),
+                );
+          }).toList();
     });
   }
 
@@ -57,34 +60,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cook Book'),
+        title: Text('What\'s Cooking? Good Looking!'),
         backgroundColor: Colors.orange,
         actions: [
           IconButton(
-            icon: Icon(Icons.search),
+            icon: Icon(Icons.more_vert),
             onPressed: () {
-              // Search functionality
-            },
-          ),
-          PopupMenuButton(
-            itemBuilder: (context) => [
-              PopupMenuItem(child: Text('Favorites'), value: 'favorites'),
-              PopupMenuItem(child: Text('Logout'), value: 'logout'),
-            ],
-            onSelected: (value) {
-              if (value == 'favorites') {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => FavoritesScreen(recipes: recipes),
-                  ),
-                );
-              } else if (value == 'logout') {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
-                );
-              }
+              _showBottomSheet(context);
             },
           ),
         ],
@@ -113,12 +95,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 SizedBox(width: 12),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.orange,
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                ),
               ],
             ),
           ),
@@ -133,7 +109,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => RecipeDetailScreen(recipe: recipe),
+                        builder:
+                            (context) => RecipeDetailScreen(recipe: recipe),
                       ),
                     );
                   },
@@ -231,6 +208,82 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder:
+                  (context) => AddRecipeScreen(
+                    onRecipeAdded: (newRecipe) {
+                      setState(() {
+                        recipes.add(newRecipe);
+                        _filterRecipes(); // Refresh the filtered list
+                      });
+                    },
+                  ),
+            ),
+          );
+        },
+        backgroundColor: Colors.orange,
+        child: Icon(Icons.add),
+        tooltip: 'Add Recipe',
+      ),
+    );
+  }
+
+  void _showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: Icon(Icons.favorite),
+                title: Text('Favorites'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FavoritesScreen(recipes: recipes),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.person),
+                title: Text('Profile'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder:
+                          (context) => ProfileScreen(
+                            userName: 'John Doe',
+                            userEmail: 'johndoe@example.com',
+                            uploadedRecipes: recipes,
+                          ),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.exit_to_app),
+                title: Text('Logout'),
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                },
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

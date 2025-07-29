@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_book/screens/home_screen.dart';
 import 'screens/login_screen.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class RecipeApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: 'Roboto',
       ),
-      home: LoginScreen(),
+      home: HomeScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
