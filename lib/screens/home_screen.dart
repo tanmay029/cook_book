@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('What\'s Cooking? Good Looking!'),
+        title: Text('What\'s Cooking? Good Lookin'),
         backgroundColor: Colors.orange,
         actions: [
           IconButton(
@@ -87,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: TextField(
                       controller: _searchController,
                       decoration: InputDecoration(
-                        hintText: 'Search recipes...',
+                        hintText: 'Search recipes or ingredients...',
                         border: InputBorder.none,
                         icon: Icon(Icons.search, color: Colors.grey[600]),
                       ),
@@ -218,7 +218,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     onRecipeAdded: (newRecipe) {
                       setState(() {
                         recipes.add(newRecipe);
-                        _filterRecipes(); // Refresh the filtered list
+                        _filterRecipes();
                       });
                     },
                   ),
