@@ -19,6 +19,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  // ignore: unused_field
   late List<Recipe> _savedRecipes;
   final RecipeService _recipeService = RecipeService();
 
