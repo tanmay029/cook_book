@@ -31,7 +31,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Future<void> _loadFavorites() async {
     final favoritesMap = await _recipeService.getFavorites();
-    // Filter saved recipes from all uploaded via matching names
     _savedRecipes = widget.uploadedRecipes
         .where((r) => favoritesMap[r.name] == true)
         .toList();
@@ -65,13 +64,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Text(email, style: TextStyle(fontSize: 18)),
             SizedBox(height: 24),
 
-            // Recipes uploaded
+            
             Text('Recipes Uploaded:',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
             Text('$uploadedCount', style: TextStyle(fontSize: 18)),
             SizedBox(height: 24),
 
-            // Saved Recipes button
+            
             Center(
               child: ElevatedButton(
                 onPressed: () {
